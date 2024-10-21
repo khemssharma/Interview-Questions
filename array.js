@@ -30,28 +30,52 @@ var maxArea = function (height) {
 };
 
 // trapping rain water
-var trap = function(height) {
+var trap = function (height) {
     if (height.length === 0) return 0;
     // two pointer and correspoding variables
-    let left = 0, leftMax = 0;
-    let right = height.length - 1, rightMax = 0;
+    let left = 0,
+        leftMax = 0;
+    let right = height.length - 1,
+        rightMax = 0;
     let waterTrapped = 0;
-    while (left < right){
-        if (height[left] < height[right]){
-            if (height[left] >= leftMax){
+    while (left < right) {
+        if (height[left] < height[right]) {
+            if (height[left] >= leftMax) {
                 leftMax = height[left];
-            }else{
+            } else {
                 waterTrapped += leftMax - height[left]
             }
             left++;
-        }else{
-            if (height[right] >= rightMax){
+        } else {
+            if (height[right] >= rightMax) {
                 rightMax = height[right];
-            }else{
+            } else {
                 waterTrapped += rightMax - height[right]
             }
             right--;
         }
     }
     return waterTrapped;
+};
+
+// first missing positive 
+var firstMissingPositive = function (nums) {
+    let n = nums.length;
+    // Place the numbers in thier correct position
+    for (let i in nums) {
+        // while the number is in range but not in correct position
+        while (nums[i] > 0 && nums[i] <= n && nums[nums[i] - 1] !== nums[i]) {
+            // swap number at i with its correct position
+            let correctIndex = nums[i] - 1;
+            [nums[i], nums[correctIndex]] = [nums[correctIndex], nums[i]]
+        }
+    }
+    // Identify the first missing positive integer
+    for (let i = 0; i < n; i++) {
+        if (nums[i] !== i + 1) {
+            return i + 1;
+        }
+    }
+    // If all numbers are at their correct position return i+1
+    return n + 1;
 };
