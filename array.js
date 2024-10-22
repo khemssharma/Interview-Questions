@@ -10,6 +10,20 @@ var removeDuplicates = function (nums) {
     return k + 1;
 };
 
+var removeElement = function (nums, val) {
+    // pointer k
+    let k = 0;
+    // iterate over nums
+    for (let i = 0; i < nums.length; i++) {
+        // for unique number
+        if (nums[i] !== val) {
+            nums[k] = nums[i];
+            k++;
+        }
+    }
+    return k;
+};
+
 // search insert position
 var searchInsert = function (nums, target) {
     let left = 0,
