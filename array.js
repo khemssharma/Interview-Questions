@@ -10,6 +10,7 @@ var removeDuplicates = function (nums) {
     return k + 1;
 };
 
+// remove element by value
 var removeElement = function (nums, val) {
     // pointer k
     let k = 0;
@@ -41,6 +42,7 @@ var searchInsert = function (nums, target) {
     return left;
 };
 
+// Find first and last position of an elemnet ina sorted array
 var searchRange = function (nums, target) {
     const binarySearch = (isleft) => {
         let left = 0,
@@ -87,7 +89,7 @@ var maxArea = function (height) {
             right--;
         }
     }
-    return maxWater
+    return maxWater;
 };
 
 // trapping rain water
