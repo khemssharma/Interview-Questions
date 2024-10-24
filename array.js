@@ -1,3 +1,36 @@
+// check if array is sorted (increasing) and rotated
+var check = function (nums) {
+    // Simply check if the next number is greater than the current
+    // If the array is sorted in cyclic order then the next is nums[(i+1)%nums.length]
+    // in cyclic sorted array only 1 time the next number can not be greater/lesser than the current
+    let countDecreasingNums = 0; // counter
+    for (let i = 0; i < nums.length; i++) { 
+        if (nums[i] > nums[(i + 1) % nums.length]) {// iterate over nums, check and count
+            countDecreasingNums++; 
+        }
+    }
+    if (countDecreasingNums > 1) {
+        return false;
+    }
+    return true;
+};
+
+// array increment by one
+var plusOne = function (digits) {
+    for (let i = digits.length - 1; i >= 0; i--) {
+        if (digits[i] < 9) {
+            // simply add one and return digits
+            digits[i] += 1;
+            return digits;
+        }
+        // countinuosly mark digit zero if it is 9
+        digits[i] = 0;
+    }
+    // if all digits are marked zero then add a one in the beginning and return digits
+    digits.unshift(1);
+    return digits;
+};
+
 // remove duplicates in nums
 var removeDuplicates = function (nums) {
     let k = 0;
