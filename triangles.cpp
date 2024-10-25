@@ -4,6 +4,7 @@ using namespace std;
 
 int main() {
     int n = 5;
+    int mid = n/2;
 
     for (int i = 1; i <= n; i++) {
         for (int j = 1; j <= n - i; j++) {
@@ -33,5 +34,43 @@ int main() {
 //   *****
 //    ***
 //     *
+    for (int i = 1; i <= mid; i++) {//upper half
+        for (int j = 1; j <= mid - i; j++) {
+            cout << " ";
+        }
+        for (int k = 1; k <= (2 * i - 1); k++) {
+            cout << "*";
+        }
+        cout << endl;
+    }
+    for (int i = mid; i > 0; i--) {//lower half
+        for (int j = 0; j < mid - i; j++) {
+            cout << " ";
+        }
+        for (int k = (2 * i - 1); k >= 1; k--) {
+            cout << "*";
+        }
+        cout << endl;
+    }
+//     *
+//    ***   
+//   *****
+//    ***
+//     *
+   for (int i = 0; i < n; i++) {
+        int stars = (i <= mid) ? 2 * i + 1 : 2 * (n - i - 1) + 1;
+
+        // Print stars for the current row
+        for (int j = 0; j < stars; j++) {
+            cout << "*";
+        }
+
+        cout << endl;
+    }
+//   *
+//   **
+//   ***
+//   **
+//   *
     return 0;
 }
