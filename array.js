@@ -67,7 +67,7 @@ var removeElement = function (nums, val) { // remove element by value
 var rotate = function (matrix) { // rotate matrix 90 degree
     let n = matrix.length;
     for (let i=0; i<n; i++) {
-        for (let j = i + 1; j < n; j++) {   //  j is always 1 more to i avoid unnecessary swap
+        for (let j = i + 1; j < n; j++) {   //  j is always 1 more to i to avoid unnecessary swap (overriding number itself)
             [matrix[i][j], matrix[j][i]] = [matrix[j][i], matrix[i][j]];
         }
     }
@@ -83,10 +83,10 @@ var maxArea = function (height) { // container with most water
     let right = height.length - 1;
     let maxWater = 0;
     while (left < right) {
-        const area = Math.min(height[left], height[right]) * (right - left)
-        maxWater = Math.max(maxWater, area) // update maxWater only when necessary
-        if (height[left] < height[right]) {
-            left++;
+        const area = Math.min(height[left], height[right]) * (right - left) // calculate area enclosed by left and right pillar
+        maxWater = Math.max(maxWater, area) // if current area is maximum, update it 
+        if (height[left] < height[right]) { // continue with next larger pillar whether it is left or right 
+            left++; 
         } else {
             right--;
         }
