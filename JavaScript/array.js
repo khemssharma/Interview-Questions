@@ -3,14 +3,14 @@
  * @return {number}
  */
 
-var twoSum = function(nums, target) {                               // assume nums [3,2,4] target 6
-    const map = new Map();                                          // create a new hashmap
-    for (let i = 0; i < nums.length ; i++){                         // now iterate over nums
-        const complement = target - nums[i]                         // find complement=target-current. for 3 = 3
-        if (map.has(complement)){                                   // if map has 3
-            return [map.get(complement), i]                         // return index of 3, and i = 0
-        }                                                           // well it has not 3 so 
-        map.set(nums[i], i)                                         // set current number to the map
+var twoSum = function(nums, target) {       // Find two numbers which are two-sum of target in nums                      
+    const map = new Map();      // create a new map
+    for (let i in nums){     // now iterate over nums
+        const complement = target - nums[i]     // find complement of target to current
+        if (map.has(complement)){       // if there's complement in map
+            return [map.get(complement), i]     // return complement and current index
+        }
+        map.set(nums[i], i)     // map current number to current index otherwise
     }
 }; 
 

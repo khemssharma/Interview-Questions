@@ -1,8 +1,7 @@
 #include <iostream>
-
 using namespace std;
 
-int main() {
+void main() {
     int n = 5;
     int mid = n/2;
 
@@ -15,11 +14,7 @@ int main() {
         }
         cout << endl;
     }
-//     *
-//    ***
-//   *****
-//  *******
-// *********
+
     for (int i = n; i >= 0; i--) {
         for (int j = 0; j < n - i; j++) {
             cout << " ";
@@ -29,12 +24,8 @@ int main() {
         }
         cout << endl;
     }
-// *********
-//  *******
-//   *****
-//    ***
-//     *
-    for (int i = 1; i <= mid; i++) {//upper half
+
+    for (int i = 1; i <= mid; i++) {
         for (int j = 1; j <= mid - i; j++) {
             cout << " ";
         }
@@ -43,7 +34,8 @@ int main() {
         }
         cout << endl;
     }
-    for (int i = mid; i > 0; i--) {//lower half
+
+    for (int i = mid; i > 0; i--) {
         for (int j = 0; j < mid - i; j++) {
             cout << " ";
         }
@@ -52,26 +44,16 @@ int main() {
         }
         cout << endl;
     }
-//     *
-//    ***   
-//   *****
-//    ***
-//     *
+
    for (int i = 0; i < n; i++) {
         int stars = (i <= mid) ? 2 * i + 1 : 2 * (n - i - 1) + 1;
-
-        // Print stars for the current row
         for (int j = 0; j < stars; j++) {
             cout << "*";
         }
 
         cout << endl;
     }
-//   *
-//   **
-//   ***
-//   **
-//   *
+
     int digit=1;
    for (int i = 1; i <= n; i++)
     {   
@@ -82,10 +64,4 @@ int main() {
         }
         cout<< endl;
     }
-//   1
-//   01
-//   101
-//   0101
-//   10101
-    return 0;
 }
