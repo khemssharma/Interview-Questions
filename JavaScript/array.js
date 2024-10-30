@@ -3,35 +3,49 @@
  * @return {number}
  */
 
-var twoSum = function(nums, target) {       // Find two numbers which are two-sum of target in nums                      
-    const map = new Map();      // create a new map
-    for (let i in nums){     // now iterate over nums
-        const complement = target - nums[i]     // find complement of target to current
-        if (map.has(complement)){       // if there's complement in map
-            return [map.get(complement), i]     // return complement and current index
+var twoSum = function (nums, target) { // Find two numbers which are two-sum of target in nums                      
+    const map = new Map(); // create a new map
+    for (let i = 0; i < nums.length; i++) { // now iterate over nums
+        const complement = target - nums[i] // find complement of target to current
+        if (map.has(complement)) { // if there's complement in map
+            return [map.get(complement), i] // return complement and current index
         }
-        map.set(nums[i], i)     // map current number to current index otherwise
+        map.set(nums[i], i) // map current number to current index otherwise
     }
-}; 
+};
 
-var missingNumber = function(nums) {
+var searchMatrix = function (matrix, target) {
+    if (!matrix.length || !matrix[0].length) return false;
+    let row = 0;
+    let col = matrix[0].length - 1;
+    while (row < matrix.length && col >= 0) {
+        if (matrix[row][col] === target) {
+            return true;
+        } else if (matrix[row][col] > target) {
+            col--
+        } else row++
+    }
+    return false
+};
+
+var missingNumber = function (nums) {
     const n = nums.length;
-    const expextedSum = (n*(n+1))/2;
-    const actualSum = nums.reduce((sum, num)=>num+sum, 0)
-    return expextedSum-actualSum;
+    const expextedSum = (n * (n + 1)) / 2;
+    const actualSum = nums.reduce((sum, num) => num + sum, 0)
+    return expextedSum - actualSum;
 };
 
 function singleNumber(nums) {
     let unique = 0;
     for (let num of nums) {
-        unique ^= num;  // XOR each number
+        unique ^= num; // XOR each number
     }
     return unique;
 }
 
 function moveZeroes(nums) {
     let lastNonZeroIndex = 0;
-    
+
     // Move all non-zero elements to the front
     for (let i = 0; i < nums.length; i++) {
         if (nums[i] !== 0) {
