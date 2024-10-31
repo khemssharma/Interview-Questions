@@ -5,11 +5,6 @@ var fib = function(n) {
     return fib(n-1)+fib(n-2);
 };
 
-var isPalindrome = function(s) {
-    const cleaned = s.toLowerCase().replace(/[^a-z0-9]/g,'');
-    return cleaned === cleaned.split('').reverse().join('');
-};
-
 var kidsWithCandies = function(candies, extraCandies) {
     let max = Math.max(candies);
     let result = []
@@ -19,17 +14,6 @@ var kidsWithCandies = function(candies, extraCandies) {
     return result;
 };
 
-var reverseList = function(head) {
-    let prev = null
-    let curr = head
-    while (curr != null){
-        let next = curr.next;
-        curr.next = prev;
-        next = prev
-        curr = next;
-    }
-};
-
 var kidsWithCandies = function(candies, extraCandies) {
     let max = Math.max(...candies);
     let result = []
@@ -37,18 +21,6 @@ var kidsWithCandies = function(candies, extraCandies) {
         result.push(candy+extraCandies >= max)
     }
     return result;
-};
-
-var reverseList = function(head) {
-    let prev = null
-    let curr = head
-    while (curr !== null){
-        let next = curr.next;
-        curr.next = prev;
-        prev = curr;
-        curr = next;
-    }
-    return prev;
 };
 
 var canPlaceFlowers = function(flowerbed, n) {
