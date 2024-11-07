@@ -13,22 +13,6 @@ var searchMatrix = function (matrix, target) {
     return false
 };
 
-var maxArea = function (height) { // container with most water
-    let left = 0; // two pointers
-    let right = height.length - 1;
-    let maxWater = 0;
-    while (left < right) {
-        const area = Math.min(height[left], height[right]) * (right - left) // calculate area enclosed by left and right pillar
-        maxWater = Math.max(maxWater, area) // if current area is maximum, update it 
-        if (height[left] < height[right]) { // continue with next larger pillar whether it is left or right 
-            left++;
-        } else {
-            right--;
-        }
-    }
-    return maxWater;
-};
-
 var searchInsert = function (nums, target) { // search insert position
     let left = 0,
         right = nums.length - 1;

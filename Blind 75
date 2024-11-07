@@ -1,6 +1,30 @@
-// Array & Hashmap
+class ArrayAndHashmap{
+    containsDuplicate = function(nums) {
+        const map = new Map()
+        for (let char of nums){
+            map.set(char, (map.get(char)||0)+1)
+        }
+        for (let [key, value] of map){
+            if (value>1)return true
+        }
+        return false;
+    };
 
-var twoSum = function (nums, target) { // Find two numbers which are two-sum of target in nums                      
+    isAnagram = function(s, t) {
+        if (s.length !== t.length)return false
+        let map = new Map()
+        for (let char of s){
+            map.set(char, (map.get(char)||0)+1);
+        }//you have map now compare with t
+        for (let char of t){
+            if (!map.has(char))return false
+            map.set(char, map.get(char)-1);
+            if (map.get(char)===0)map.delete(char)
+        }
+        return map.size===0
+    };
+
+    twoSum = function (nums, target) { // Find two numbers which are two-sum of target in nums                      
     const map = new Map(); // create a new map
     for (let i = 0; i < nums.length; i++) { // now iterate over nums
         const complement = target - nums[i] // find complement of target to current
@@ -9,68 +33,168 @@ var twoSum = function (nums, target) { // Find two numbers which are two-sum of 
         }
         map.set(nums[i], i) // map current number to current index otherwise
     }
-};
+    };
 
-class EncodeDecode { // Encode and decode string
-    encode(strs) {
-        let encoded = ''
-        for(let str of strs){
-            encoded += str.length + "#" + str
+    groupAnagrams = function(strs) {
+        const map = new Map()
+        for (let str of strs){
+            const sorted = str.split('').sort().join('')
+            if (!map.has(sorted)) map.set(sorted, [])
+            map.get(sorted).push(str)
         }
-        return encoded;
-    }
-    decode(str) {
-        let decoded = []
-        let i = 0;
-        while ( i < str.length){ //while i is in bound
-            let j = str.indexOf('#', i) //find delimeter
-            let length = parseInt(str.slice(i,j)); // find length
-            i = j+1; // start from the beginning of string
-            decoded.push(str.slice(i,i+length)) // push into str
-            i += length // jump to next string
+        return Array.from(map.values())
+    };
+    
+    topKFrequent = function (nums, k) {
+        const frequencyMap = new Map()
+        const buckets = Array.from({ // bucket sort
+            length: nums.length + 1
+        }, () => [])
+        const result = []
+        for (const num of nums) {
+            frequencyMap.set(num, (frequencyMap.get(num) || 0) + 1)
         }
-        return decoded
-    }
-}
-
-function productExceptSelf(nums){
-    const n = nums.length;
-    const result  = Array(n).fill(1)
-    let leftProduct = 1;
-    for (let i = 0; i<n; i++){
-        result[i] = leftProduct;
-        leftProduct *= nums[i]
-    }
-    let rightProduct = 1
-    for (let i=n-1; i>=0; i--){
-        result[i] *= rightProduct;
-        rightProduct *= nums[i]
-    }
-    return result
-}
-
-var longestConsecutive = function(nums) {   // longest coonsecutive subsequence
-    if (nums.length === 0) return 0
-    let longest = 0;
-    let numSet = new Set(nums)
-    for (let num of nums){
-        if (!numSet.has(num-1)){
-            let currentStreak = 1;
-            let currentNum = num
-            while ( numSet.has(currentNum+1) ){
-                currentNum++;
-                currentStreak++;
+        for (const [num, freq] of frequencyMap.entries()) {
+            buckets[freq].push(num)
+        }
+        for (let i = buckets.length-1; i >= 0; i--) {
+            for (const num of buckets[i]) {
+                result.push(num)
+                if (result.length === k) {
+                    return result
+                }
             }
-            longest = Math.max(longest, currentStreak)
+        }
+        return result
+    }
+    
+    EncodeDecode = function() { // Encode and decode string
+        function encode(strs) {
+            let encoded = ''
+            for (let str of strs) {
+                encoded += str.length + "#" + str
+            }
+            return encoded;
+        }
+        function decode(str) {
+            let decoded = []
+            let i = 0;
+            while (i < str.length) { //while i is in bound
+                let j = str.indexOf('#', i) //find delimeter
+                let length = parseInt(str.slice(i, j)); // find length
+                i = j + 1; // start from the beginning of string
+                decoded.push(str.slice(i, i + length)) // push into str
+                i += length // jump to next string
+            }
+            return decoded
         }
     }
-    return longest
-};
+    
+    productExceptSelf(nums) {
+        const n = nums.length;
+        const result = Array(n).fill(1)
+        let leftProduct = 1;
+        for (let i = 0; i < n; i++) {
+            result[i] = leftProduct;
+            leftProduct *= nums[i]
+        }
+        let rightProduct = 1
+        for (let i = n - 1; i >= 0; i--) {
+            result[i] *= rightProduct;
+            rightProduct *= nums[i]
+        }
+        return result
+    }
+    
+    longestConsecutive = function (nums) { // longest coonsecutive subsequence
+        if (nums.length === 0) return 0
+        let longest = 0;
+        let numSet = new Set(nums)
+        for (let num of nums) {
+            if (!numSet.has(num - 1)) {
+                let currentStreak = 1;
+                let currentNum = num
+                while (numSet.has(currentNum + 1)) {
+                    currentNum++;
+                    currentStreak++;
+                }
+                longest = Math.max(longest, currentStreak)
+            }
+        }
+        return longest
+    };
+}
 
-// Two pointer
+class Twopointer{
+    isPalindrome = function (s) { // Check if a string is a palindrome
+        const cleaned = s.toLowerCase().replace(/[^a-z0-9]/g, '');
+        return cleaned === cleaned.split('').reverse().join('');
+    };
+    
+    threeSum = function (nums) {
+        const result = []; // result
+        nums.sort((a, b) => a - b) // sort the array
+        for (let i = 0; i < nums.length - 2; i++) { // iterate over nums
+            if (i > 0 && nums[i] === nums[i - 1]) continue // skip first duplicate
+            let left = i + 1,
+                right = nums.length - 1; // two pointer
+            while (left < right) { // inner loop
+                const currentSum = nums[i] + nums[left] + nums[right] // find sum
+                if (currentSum === 0) { // if valid 
+                    result.push([nums[i], nums[left], nums[right]]) //push into result
+                    while (left < right && nums[left] === nums[left + 1]) left++; //duplicates
+                    while (left < right && nums[right] === nums[right - 1]) right--;
+                    left++; // carry on
+                    right--;
+                } else if (currentSum < 0) {
+                    left++
+                } else right--;
+            }
+        }
+        return result
+    };
 
-var isPalindrome = function(s) { // Check is if a string is a palindrome
-    const cleaned = s.toLowerCase().replace(/[^a-z0-9]/g,'');
-    return cleaned === cleaned.split('').reverse().join('');
-};
+    maxArea = function (height) { // container with most water
+        let left = 0; // two pointers
+        let right = height.length - 1;
+        let maxWater = 0;
+        while (left < right) {
+            const area = Math.min(height[left], height[right]) * (right - left) // calculate area enclosed by left and right pillar
+            maxWater = Math.max(maxWater, area) // if current area is maximum, update it 
+            if (height[left] < height[right]) { // continue with next larger pillar whether it is left or right 
+                left++;
+            } else {
+                right--;
+            }
+        }
+        return maxWater;
+    };
+}
 
+class SlidingWindow{
+    maxProfit = function (prices) { //   Best time to buy and sell stocks
+        let maxProfit = 0; // no profit
+        let minPrice = Infinity; // highest price
+        for (let price=0; price < prices.length; price++) { //  look for every price
+            minPrice = Math.min(minPrice, price); //  compare cuurent price with minimum price
+            const profit = price - minPrice; // find current profit 
+            maxProfit = Math.max(maxProfit, profit); //  compare current profit with maximum profit  
+        }
+        return maxProfit;
+    };
+    
+    lengthOfLongestSubstring = function (s) {
+        let left = 0;
+        let max_length = 0;
+        const map = new Map();
+        for (let right = 0; right < s.length; right++) {
+            while (map.has(s[right])) {
+                map.delete(s[left]);
+                left++
+            }
+            map.set(s[right], right)
+            max_length = Math.max(max_length, right - left + 1)
+        }
+        return max_length;
+    };   
+}
