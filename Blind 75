@@ -172,13 +172,13 @@ class Twopointer{
 }
 
 class SlidingWindow{
-    maxProfit = function (prices) { //   Best time to buy and sell stocks
-        let maxProfit = 0; // no profit
-        let minPrice = Infinity; // highest price
-        for (let price=0; price < prices.length; price++) { //  look for every price
-            minPrice = Math.min(minPrice, price); //  compare cuurent price with minimum price
-            const profit = price - minPrice; // find current profit 
-            maxProfit = Math.max(maxProfit, profit); //  compare current profit with maximum profit  
+    maxProfit = function(prices) { //   Best time to buy and sell stocks
+        let maxProfit = 0;
+        let minPrice = Infinity;
+        for (let price of prices){
+            minPrice = Math.min(minPrice, price);
+            const profit = price - minPrice;
+            maxProfit = Math.max(maxProfit, profit);
         }
         return maxProfit;
     };
