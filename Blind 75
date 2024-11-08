@@ -1,50 +1,50 @@
-class ArrayAndHashmap{
-    containsDuplicate = function(nums) {
+class ArrayAndHashmap {
+    containsDuplicate = function (nums) {
         const map = new Map()
-        for (let char of nums){
-            map.set(char, (map.get(char)||0)+1)
+        for (let char of nums) {
+            map.set(char, (map.get(char) || 0) + 1)
         }
-        for (let [key, value] of map){
-            if (value>1)return true
+        for (let [key, value] of map) {
+            if (value > 1) return true
         }
         return false;
     };
 
-    isAnagram = function(s, t) {
-        if (s.length !== t.length)return false
+    isAnagram = function (s, t) {
+        if (s.length !== t.length) return false
         let map = new Map()
-        for (let char of s){
-            map.set(char, (map.get(char)||0)+1);
-        }//you have map now compare with t
-        for (let char of t){
-            if (!map.has(char))return false
-            map.set(char, map.get(char)-1);
-            if (map.get(char)===0)map.delete(char)
+        for (let char of s) {
+            map.set(char, (map.get(char) || 0) + 1);
+        } //you have map now compare with t
+        for (let char of t) {
+            if (!map.has(char)) return false
+            map.set(char, map.get(char) - 1);
+            if (map.get(char) === 0) map.delete(char)
         }
-        return map.size===0
+        return map.size === 0
     };
 
     twoSum = function (nums, target) { // Find two numbers which are two-sum of target in nums                      
-    const map = new Map(); // create a new map
-    for (let i = 0; i < nums.length; i++) { // now iterate over nums
-        const complement = target - nums[i] // find complement of target to current
-        if (map.has(complement)) { // if there's complement in map
-            return [map.get(complement), i] // return complement and current index
+        const map = new Map(); // create a new map
+        for (let i = 0; i < nums.length; i++) { // now iterate over nums
+            const complement = target - nums[i] // find complement of target to current
+            if (map.has(complement)) { // if there's complement in map
+                return [map.get(complement), i] // return complement and current index
+            }
+            map.set(nums[i], i) // map current number to current index otherwise
         }
-        map.set(nums[i], i) // map current number to current index otherwise
-    }
     };
 
-    groupAnagrams = function(strs) {
+    groupAnagrams = function (strs) {
         const map = new Map()
-        for (let str of strs){
+        for (let str of strs) {
             const sorted = str.split('').sort().join('')
             if (!map.has(sorted)) map.set(sorted, [])
             map.get(sorted).push(str)
         }
         return Array.from(map.values())
     };
-    
+
     topKFrequent = function (nums, k) {
         const frequencyMap = new Map()
         const buckets = Array.from({ // bucket sort
@@ -57,7 +57,7 @@ class ArrayAndHashmap{
         for (const [num, freq] of frequencyMap.entries()) {
             buckets[freq].push(num)
         }
-        for (let i = buckets.length-1; i >= 0; i--) {
+        for (let i = buckets.length - 1; i >= 0; i--) {
             for (const num of buckets[i]) {
                 result.push(num)
                 if (result.length === k) {
@@ -67,8 +67,8 @@ class ArrayAndHashmap{
         }
         return result
     }
-    
-    EncodeDecode = function() { // Encode and decode string
+
+    EncodeDecode = function () { // Encode and decode string
         function encode(strs) {
             let encoded = ''
             for (let str of strs) {
@@ -76,6 +76,7 @@ class ArrayAndHashmap{
             }
             return encoded;
         }
+
         function decode(str) {
             let decoded = []
             let i = 0;
@@ -89,7 +90,7 @@ class ArrayAndHashmap{
             return decoded
         }
     }
-    
+
     productExceptSelf(nums) {
         const n = nums.length;
         const result = Array(n).fill(1)
@@ -105,7 +106,7 @@ class ArrayAndHashmap{
         }
         return result
     }
-    
+
     longestConsecutive = function (nums) { // longest coonsecutive subsequence
         if (nums.length === 0) return 0
         let longest = 0;
@@ -125,12 +126,12 @@ class ArrayAndHashmap{
     };
 }
 
-class Twopointer{
+class Twopointer {
     isPalindrome = function (s) { // Check if a string is a palindrome
         const cleaned = s.toLowerCase().replace(/[^a-z0-9]/g, '');
         return cleaned === cleaned.split('').reverse().join('');
     };
-    
+
     threeSum = function (nums) {
         const result = []; // result
         nums.sort((a, b) => a - b) // sort the array
@@ -171,19 +172,19 @@ class Twopointer{
     };
 }
 
-class SlidingWindow{
-    maxProfit = function(prices) { //   Best time to buy and sell stocks
+class SlidingWindow {
+    maxProfit = function (prices) { //   Best time to buy and sell stocks
         let maxProfit = 0;
         let minPrice = Infinity;
-        for (let price of prices){
+        for (let price of prices) {
             minPrice = Math.min(minPrice, price);
             const profit = price - minPrice;
             maxProfit = Math.max(maxProfit, profit);
         }
         return maxProfit;
     };
-    
-    lengthOfLongestSubstring = function (s) {
+
+    lengthOfLongestSubstring = function (s) { // without repeating characters
         let left = 0;
         let max_length = 0;
         const map = new Map();
@@ -196,5 +197,151 @@ class SlidingWindow{
             max_length = Math.max(max_length, right - left + 1)
         }
         return max_length;
-    };   
+    };
+
+    characterReplacement = function(s, k) { //Longest repeating character replacement
+        let left = 0, freq = {}, maxFrequency = 0, maxLength = 0;
+        for (let right = 0; right < s.length; right++){
+            const char  = s[right];
+            freq[char] = (freq[char] || 0)+1
+            maxFrequency = Math.max(maxFrequency, freq[char])
+            while ((right-left+1)-maxFrequency > k) {
+                freq[s[left]]--
+                left++
+            }
+            maxLength = Math.max(maxLength, right-left+1)
+        }
+        return maxLength
+    };
+
+    minWindow(s, t) { // minimum window substring
+        if (s.length < t.length) return "";
+    
+        const requiredChars = new Map();
+        for (const char of t) {
+            requiredChars.set(char, (requiredChars.get(char) || 0) + 1);
+        }
+    
+        let left = 0;
+        let right = 0;
+        let formed = 0;
+        const windowCounts = new Map();
+        const required = requiredChars.size;
+    
+        let minLength = Infinity;
+        let minWindowStart = 0;
+    
+        while (right < s.length) {
+            const char = s[right];
+            windowCounts.set(char, (windowCounts.get(char) || 0) + 1);
+    
+            if (requiredChars.has(char) && windowCounts.get(char) === requiredChars.get(char)) {
+                formed += 1;
+            }
+    
+            while (left <= right && formed === required) {
+                if (right - left + 1 < minLength) {
+                    minLength = right - left + 1;
+                    minWindowStart = left;
+                }
+    
+                const leftChar = s[left];
+                windowCounts.set(leftChar, windowCounts.get(leftChar) - 1);
+    
+                if (requiredChars.has(leftChar) && windowCounts.get(leftChar) < requiredChars.get(leftChar)) {
+                    formed -= 1;
+                }
+                left += 1;
+            }
+            right += 1;
+        }
+    
+        return minLength === Infinity ? "" : s.slice(minWindowStart, minWindowStart + minLength);
+    }
+}
+
+class Stack {
+    isValid(s) { // valid parantheses
+        const stack = [];
+        const map = {
+            ')': '(',
+            '}': '{',
+            ']': '['
+        };
+    
+        for (let char of s) {
+            if (char === '(' || char === '{' || char === '[') { // Push opening brackets onto the stack
+                stack.push(char);
+            } else {                                            // If the stack is empty or the top of the stack does not match the current closing bracket, return false
+                if (stack.length === 0 || stack.pop() !== map[char]) {
+                    return false;
+                }
+            }
+        }
+    
+        return stack.length === 0;                               // If the stack is empty at the end, all parentheses are closed properly
+    } 
+}
+
+class BinarySearch{
+    findMin(nums) { // find minimum in rotated sorted array
+        let left = 0;
+        let right = nums.length - 1;
+    
+        if (nums[left] < nums[right] || nums.length === 1) {   // If the array is not rotated or has one element, return the first element 
+            return nums[left];
+        }
+    
+        while (left <= right) {
+            let mid = Math.floor((left + right) / 2);
+    
+            if (nums[mid] > nums[mid + 1]) {     // Check if mid element is the smallest
+                return nums[mid + 1];
+            }
+    
+            if (nums[mid - 1] > nums[mid]) {    // Check if the element before mid is the smallest
+                return nums[mid];
+            }
+    
+            if (nums[mid] > nums[left]) {       // Adjust search range
+                left = mid + 1;
+            } else {
+                right = mid - 1;
+            }
+        }
+    }
+
+    search(nums, target) {  // search in rotated sorted array
+        let left = 0;
+        let right = nums.length - 1;
+    
+        while (left <= right) {
+            let mid = Math.floor((left + right) / 2);
+    
+            if (nums[mid] === target) {     // Check if the target is found at the mid index
+                return mid;
+            }
+    
+            if (nums[left] <= nums[mid]) {  // If the left part is sorted
+                if (target >= nums[left] && target < nums[mid]) {   // Check if target is in the left part
+                    right = mid - 1;  // Target is in the left part
+                } else {
+                    left = mid + 1;   // Target is in the right part
+                }
+            }
+            else {                      // If the right part is sorted
+                if (target > nums[mid] && target <= nums[right]) {       // Check if target is in the right part
+                    left = mid + 1;  // Target is in the right part
+                } else {
+                    right = mid - 1; // Target is in the left part
+                }
+            }
+        }
+    
+        return -1; // Target not found
+    }    
+}
+
+class LinkedList{
+
 }
