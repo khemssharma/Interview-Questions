@@ -261,26 +261,22 @@ class SlidingWindow {
 }
 
 class Stack {
-    isValid(s) { // valid parantheses
-        const stack = [];
+    isValid = function(s) {
+        let stack = []
         const map = {
-            ')': '(',
-            '}': '{',
-            ']': '['
-        };
-    
-        for (let char of s) {
-            if (char === '(' || char === '{' || char === '[') { // Push opening brackets onto the stack
-                stack.push(char);
-            } else {                                            // If the stack is empty or the top of the stack does not match the current closing bracket, return false
-                if (stack.length === 0 || stack.pop() !== map[char]) {
-                    return false;
-                }
+            '}':'{',
+            ')':'(',
+            ']':'['
+        }
+        for (let char of  s){
+            if (char === '{' || char ==='('|| char ==='[' ){
+                stack.push(char)
+            }else{
+                if (stack.length===0 ||stack.pop() !== map[char] ) return false;
             }
         }
-    
-        return stack.length === 0;                               // If the stack is empty at the end, all parentheses are closed properly
-    } 
+        return stack.length === 0
+    };
 }
 
 class BinarySearch{
