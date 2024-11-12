@@ -214,6 +214,7 @@ class SlidingWindow {
         return maxLength
     };
 
+    // NOTE: It is advised to solve hard question like this in python or even C++
     minWindow(s, t) { // minimum window substring
         if (s.length < t.length) return "";
     
@@ -280,64 +281,70 @@ class Stack {
 }
 
 class BinarySearch{
-    findMin(nums) { // find minimum in rotated sorted array
-        let left = 0;
-        let right = nums.length - 1;
-    
-        if (nums[left] < nums[right] || nums.length === 1) {   // If the array is not rotated or has one element, return the first element 
-            return nums[left];
-        }
-    
-        while (left <= right) {
-            let mid = Math.floor((left + right) / 2);
-    
-            if (nums[mid] > nums[mid + 1]) {     // Check if mid element is the smallest
-                return nums[mid + 1];
-            }
-    
-            if (nums[mid - 1] > nums[mid]) {    // Check if the element before mid is the smallest
-                return nums[mid];
-            }
-    
-            if (nums[mid] > nums[left]) {       // Adjust search range
-                left = mid + 1;
-            } else {
-                right = mid - 1;
+    findMin = function(nums) { // Find minimum in a rotated sorted array
+        let left = 0, right = nums.length-1;
+        while (left < right){
+            const mid = Math.floor((left+right)/2)
+            if (nums[right] < nums[mid]){ // If mid is greater than minimum is on the right
+                left = mid +1;
+            }else{
+                right = mid;
             }
         }
-    }
+        return nums[left]
+    };
 
-    search(nums, target) {  // search in rotated sorted array
-        let left = 0;
-        let right = nums.length - 1;
-    
-        while (left <= right) {
-            let mid = Math.floor((left + right) / 2);
-    
-            if (nums[mid] === target) {     // Check if the target is found at the mid index
-                return mid;
-            }
-    
-            if (nums[left] <= nums[mid]) {  // If the left part is sorted
-                if (target >= nums[left] && target < nums[mid]) {   // Check if target is in the left part
-                    right = mid - 1;  // Target is in the left part
-                } else {
-                    left = mid + 1;   // Target is in the right part
+    search = function(nums, target) { // search target in a rotated sorted array
+        let left = 0, right = nums.length -1;
+        while (left <= right ){
+            const mid = Math.floor((left + right )/2);
+            if ( nums[mid] === target) return mid;
+            if ( nums[left] <= nums[mid]) {
+                if (nums[left] <= target && target < nums[mid]){
+                    right = mid;
+                }else {
+                    left = mid +1;
                 }
-            }
-            else {                      // If the right part is sorted
-                if (target > nums[mid] && target <= nums[right]) {       // Check if target is in the right part
-                    left = mid + 1;  // Target is in the right part
+            }else{
+                if (nums[mid] < target && target <= nums[right]){
+                    left = mid+1;
                 } else {
-                    right = mid - 1; // Target is in the left part
+                    right = mid;
                 }
             }
         }
-    
-        return -1; // Target not found
-    }    
+        return -1;
+    };   
 }
 
 class LinkedList{
+    reverseList = function(head) {
+        let prev = null
+        let curr = head
+        while (curr !== null){
+            let next = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = next;
+        }
+        return prev;
+    };
 
+    mergeTwoLists = function(list1, list2) {
+        let dummy = new ListNode(-1);
+        let curr = dummy;
+        while (list1 !== null && list2 !== null){
+            if ( list1.val <= list2.val){
+                curr.next = list1
+                list1 = list1.next
+            }else{
+                curr.next = list2
+                list2 = list2.next
+            }
+            curr = curr.next
+        }
+        curr.next = list1 !== null ? list1 :list2
+        return dummy.next;
+    };
+    
 }
