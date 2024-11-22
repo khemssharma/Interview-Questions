@@ -9,7 +9,7 @@
 
 ## Binary Search
 <div>
-    <p> In this approach we continuosly divide search space into two halves
+    <p> In this approach we continuosly divide search space into two halves.
     It divides the search space logarithmicaly.
     </p>
 </div>
