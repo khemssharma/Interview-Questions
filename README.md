@@ -3,7 +3,7 @@
 ## Two Pointer
 <div>
     <p> In this approach two pointers move towards or opposite to each other.
-    It does not divides the search space logarithmicaly.
+    It does not divide the search space logarithmicaly.
     </p>
 </div>
 
