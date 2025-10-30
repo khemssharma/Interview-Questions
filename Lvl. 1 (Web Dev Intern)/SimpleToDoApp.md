@@ -1,4 +1,4 @@
-# Simple To Do App
+# Lvl 1
 ```
 import {useState} from "react"
 export default function App() {
@@ -19,3 +19,5 @@ export default function App() {
 }
 
 ```
+# Lvl 2: Try it yourself
+https://nextleap.app/online-compiler/reactjs-programming/4vzbcxrp7
