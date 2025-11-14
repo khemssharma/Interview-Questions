@@ -4,4 +4,4 @@
 Try [Programiz](https://www.programiz.com/javascript) and other learning resources on Google & Youtube.
 
 ### 2. ReactJS / NextJS / MERN
-Try project-walthroughs on YouTube.
+Build projects in VS-Code or [here](https://nextleap.app/online-compiler/c-programming), following project-walthroughs on YouTube.
