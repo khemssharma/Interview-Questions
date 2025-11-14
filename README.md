@@ -1,7 +1,7 @@
-# SDE Interview Questions 
+# Prerequisites 
 
-### Lvl 1
-In this you will study basic Web Designs and web programming
+### 1. JavaScript
+Try [Programiz](https://www.programiz.com/javascript) and other learning resources on Google & Youtube.
 
-### Lvl 2
-In this you will study advanced DSA and Software Architecture.
+### 2. ReactJS / NextJS
+Try project-walthroughs on YouTube.
